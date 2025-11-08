@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Notas</title>
+    <style>
+        body {
+            font-family: Algerian, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ED98E7;
+        }
+        
+        .container {
+            background: #98E3E0;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #E62CE6;
+            text-align: center;
+        }
+        
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #929CE8;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #9448E8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover Effects .fx-neon:hover {
+            background-color: #45a049;
+        }
+        
+        #resultado {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .aprobado {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        
+        .desaprobado {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Calculadora-Noemi de Promedio ✨</h1>
+        <p style="text-align: center; color: #2664F0;">Ingresa tus 4 notas del bimestre</p>
+        
+        <label for="nota1">📋 Nota 1:</label>
+        <input type="number" id="nota1" min="0" max="20" placeholder="Ingresa nota entre 0 y 20">
+        
+        <label for="nota2">📋 Nota 2:</label>
+        <input type="number" id="nota2" min="0" max="20" placeholder="Ingresa nota entre 0 y 20">
+        
+        <label for="nota3">📋 Nota 3:</label>
+        <input type="number" id="nota3" min="0" max="20" placeholder="Ingresa nota entre 0 y 20">
+        
+        <label for="nota4">📋 Nota 4:</label>
+        <input type="number" id="nota4" min="0" max="20" placeholder="Ingresa nota entre 0 y 20">
+        
+        <button onclick="calcularPromedio()">🌟 Calcular Promedio 🌟</button>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        /**
+         * Función: calcularPromedio
+         * Descripción: Calcula el promedio de 4 notas y determina si el estudiante aprobó
+         * Retorna: void (muestra el resultado en pantalla)
+         */
+        function calcularPromedio() {
+            // 1. Obtener los valores de los campos de entrada
+            // parseFloat() convierte el texto a número decimal
+            const nota1 = parseFloat(document.getElementById('nota1').value);
+            const nota2 = parseFloat(document.getElementById('nota2').value);
+            const nota3 = parseFloat(document.getElementById('nota3').value);
+            const nota4 = parseFloat(document.getElementById('nota4').value);
+            
+            // 2. Validar que todos los campos tengan valores válidos
+            // isNaN() verifica si NO es un número
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
+                alert('⚠️ Por favor ingresa todas las notas');
+                return; // Detiene la función
+            }
+            
+            // 3. Validar que las notas estén entre 0 y 20
+            if (nota1 < 0 || nota1 > 20 || nota2 < 0 || nota2 > 20 || 
+                nota3 < 0 || nota3 > 20 || nota4 < 0 || nota4 > 20) {
+                alert('⚠️ Las notas deben estar entre 0 y 20');
+                return;
+            }
+            
+            // 4. Calcular el promedio
+            const promedio = (nota1 + nota2 + nota3 + nota4) / 4;
+            
+            // 5. Redondear a 2 decimales
+            const promedioRedondeado = promedio.toFixed(2);
+            
+            // 6. Determinar si aprobó o desaprobó
+            let estado;
+            let clase;
+            
+            if (promedio >= 13) {
+                estado = '✅ APROBADO';
+                clase = 'aprobado';
+            } else {
+                estado = '❌ DESAPROBADO';
+                clase = 'desaprobado';
+            }
+            
+            // 7. Mostrar el resultado en pantalla
+            const divResultado = document.getElementById('resultado');
+            divResultado.className = clase;
+            divResultado.innerHTML = 
+                '<h3>📊 Resultados</h3>' +
+                '<p>Promedio Final: <strong>' + promedioRedondeado + '</strong></p>' +
+                '<p>Estado: <strong>' + estado + '</strong></p>';
+        }
+    </script>
+</body>
+</html>
